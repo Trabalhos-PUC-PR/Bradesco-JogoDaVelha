@@ -3,18 +3,41 @@
 -->
 
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Hash game</title>
-    </head>
-    <body>
-        <h2><b>TODO:</b></h2>
-        <p>Decide how I'll draw the squares</p>
-        <p>Functional stock hash game (2d, w/o CPU)</p>
-        <p>CPU opponent implementation (easy, medium, expert)</p>
-        <p>3D Animation with CUBES (pure css-html)</p>
-        <p>How layers work in html (alpha channel, transparency)</p>
-        <p>3x3x3 hash game (w/o CPU)</p>
-        <p>Implementation of CPU for 3d hash game</p>
-    </body>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Hash game</title>
+</head>
+
+<body>
+    <!-- <h2><b>TODO:</b></h2>
+    <p>Decide how I'll draw the squares</p>
+    <p>Functional stock hash game (2d, w/o CPU)</p>
+    <p>CPU opponent implementation (easy, medium, expert)</p>
+    <p>3D Animation with CUBES (pure css-html)</p>
+    <p>How layers work in html (alpha channel, transparency)</p>
+    <p>3x3x3 hash game (w/o CPU)</p>
+    <p>Implementation of CPU for 3d hash game</p> -->
+
+    <center>
+        <br>
+        <div class="row">
+            <div class="square" onclick="toggleColor(this)"></div>
+            <div class="square" onclick="toggleColor(this)"></div>
+            <div class="square" onclick="toggleColor(this)"></div>
+        </div>
+        <div class="row">
+            <div class="square" onclick="toggleColor(this)"></div>
+            <div class="square" onclick="toggleColor(this)"></div>
+            <div class="square" onclick="toggleColor(this)"></div>
+        </div>
+        <div class="row">
+            <div class="square" onclick="toggleColor(this)"></div>
+            <div class="square" onclick="toggleColor(this)"></div>
+            <div class="square" onclick="toggleColor(this)"></div>
+        </div>
+    </center>
+</body>
+<script src="js/hashGame.js"></script>
 </html>

@@ -2,3 +2,19 @@ body{
     background-color: wheat;
     color: sienna;
 }
+
+.square{
+    background-color: bisque;
+    width: 10em;
+    height: 10em;
+    margin: 0.1em;
+    display: inline-block;
+    border-width: 0.01em;
+    border-style: solid;
+}
+
+.square:hover{
+    transition-duration: .3s;
+    transform: scale(1.03);
+    background-color: burlywood;
+}
