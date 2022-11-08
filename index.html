@@ -23,21 +23,31 @@
     <center>
         <br>
         <div class="row">
-            <div class="square" onclick="toggleColor(this)"></div>
-            <div class="square" onclick="toggleColor(this)"></div>
-            <div class="square" onclick="toggleColor(this)"></div>
+            <div class="square" onclick="placePiece(this)" pos="0,0"></div>
+            <div class="square" onclick="placePiece(this)" pos="0,1"></div>
+            <div class="square" onclick="placePiece(this)" pos="0,2"></div>
         </div>
         <div class="row">
-            <div class="square" onclick="toggleColor(this)"></div>
-            <div class="square" onclick="toggleColor(this)"></div>
-            <div class="square" onclick="toggleColor(this)"></div>
+            <div class="square" onclick="placePiece(this)" pos="1,0"></div>
+            <div class="square" onclick="placePiece(this)" pos="1,1"></div>
+            <div class="square" onclick="placePiece(this)" pos="1,2"></div>
         </div>
         <div class="row">
-            <div class="square" onclick="toggleColor(this)"></div>
-            <div class="square" onclick="toggleColor(this)"></div>
-            <div class="square" onclick="toggleColor(this)"></div>
+            <div class="square" onclick="placePiece(this)" pos="2,0"></div>
+            <div class="square" onclick="placePiece(this)" pos="2,1"></div>
+            <div class="square" onclick="placePiece(this)" pos="2,2"></div>
         </div>
     </center>
+    <div class="rewindButton" onclick="rewind()">
+        <center>
+            <br>
+            Undo
+        </center>
+    </div>
 </body>
 <script src="js/hashGame.js"></script>
+<script>
+    setup()
+</script>
+
 </html>
