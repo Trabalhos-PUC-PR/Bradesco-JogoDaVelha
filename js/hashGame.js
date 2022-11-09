@@ -1,17 +1,23 @@
-let current = "";
+import { Stack } from './stack.mjs'
+import { CPU } from './CPU.mjs'
+
+let current;
 let log;
 let field;
 let hasWinner;
+let IA;
 
 function setup() {
     current = "red";
     log = new Stack();
-    field = [9];
-    hasWinner;
+    field = [];
+    for (let i = 0; i < 9; i++)
+        field[i] = undefined;
+    IA = new CPU();
 }
 
-function rewind() {
-    if(hasWinner){
+window.rewind = function () {
+    if (hasWinner || log.size() == 9) {
         hasWinner = "";
         document.body.style.background = ""
     }
@@ -21,7 +27,7 @@ function rewind() {
         const arrayIndex = coords.y * 3 + coords.x;
         field[arrayIndex] = undefined;
 
-        const elem = document.querySelector('[pos="'+lastMove+'"]')
+        const elem = document.querySelector('[pos="' + lastMove + '"]')
         elem.removeAttribute("value");
         elem.style.background = "";
 
@@ -36,11 +42,10 @@ function rewind() {
     console.log(field)
 }
 
-function placePiece(element) {
+window.placePiece = function (element) {
     if (!hasWinner) {
 
         const value = element.getAttribute("value");
-        color = element.style.background;
         if (!value) {
             const pos = element.getAttribute("pos");
 
@@ -52,13 +57,14 @@ function placePiece(element) {
             element.setAttribute("value", current);
             element.style.background = current;
 
+            hasWinner = checkWin(field);
+
             if (current === "red") {
                 current = "blue";
             } else {
                 current = "red";
             }
 
-            hasWinner = checkWin();
             if (hasWinner) {
                 let setcolor = ""
                 if (hasWinner === "red") {
@@ -67,33 +73,42 @@ function placePiece(element) {
                     setcolor = "LightSkyBlue"
                 }
                 document.body.style.background = setcolor
+            } else {
+                if (log.size() == 9) {
+                    document.body.style.background = 'LightGrey'
+                }
             }
-
+            if (!hasWinner && current == "blue") {
+                const CPUplay = IA.getBestPlay(IA.classify(IA.getPossiblePlays(field)));
+                
+                const elem = document.querySelector('[pos="' + CPUplay.play.pos + '"]');
+                placePiece(elem);
+            }
         }
     }
 }
 
-function checkWin() {
+
+export function checkWin(field, color = current) {
     // checks if theres a piece in  each of the compared places, then if they are all the same
-    if (field[0] && field[1] && field[2] && field[0] == field[1] && field[1] == field[2])
+    if (color == field[0] && field[0] && field[1] && field[2] && field[0] == field[1] && field[1] == field[2])
         return field[0]
-    if (field[3] && field[4] && field[5] && field[3] == field[4] && field[4] == field[5])
+    if (color == field[3] && field[3] && field[4] && field[5] && field[3] == field[4] && field[4] == field[5])
         return field[3]
-    if (field[6] && field[7] && field[8] && field[6] == field[7] && field[7] == field[8])
+    if (color == field[6] && field[6] && field[7] && field[8] && field[6] == field[7] && field[7] == field[8])
         return field[6]
 
-    if (field[0] && field[3] && field[6] && field[0] == field[3] && field[3] == field[6])
+    if (color == field[0] && field[0] && field[3] && field[6] && field[0] == field[3] && field[3] == field[6])
         return field[0]
-    if (field[1] && field[4] && field[7] && field[1] == field[4] && field[4] == field[7])
+    if (color == field[1] && field[1] && field[4] && field[7] && field[1] == field[4] && field[4] == field[7])
         return field[1]
-    if (field[2] && field[5] && field[8] && field[2] == field[5] && field[5] == field[8])
+    if (color == field[2] && field[2] && field[5] && field[8] && field[2] == field[5] && field[5] == field[8])
         return field[2]
 
-    if (field[0] && field[4] && field[8] && field[0] == field[4] && field[4] == field[8])
+    if (color == field[0] && field[0] && field[4] && field[8] && field[0] == field[4] && field[4] == field[8])
         return field[0]
-    if (field[2] && field[4] && field[6] && field[2] == field[4] && field[4] == field[6])
+    if (color == field[2] && field[2] && field[4] && field[6] && field[2] == field[4] && field[4] == field[6])
         return field[2]
-
 }
 
 function parsePos(pos) {
@@ -103,30 +118,4 @@ function parsePos(pos) {
     return { y, x };
 }
 
-class Stack {
-    constructor() {
-        this.stack = [];
-    }
-
-    add(element) {
-        this.stack.push(element);
-    }
-
-    remove() {
-        if (!this.isEmpty())
-            return this.stack.pop();
-        return null;
-    }
-
-    isEmpty() {
-        return this.stack.length == 0;
-    }
-
-    size() {
-        return this.stack.length;
-    }
-
-    clear() {
-        this.stack = [];
-    }
-}
+setup()

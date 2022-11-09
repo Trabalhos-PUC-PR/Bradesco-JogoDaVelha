@@ -1,6 +1,4 @@
-export { Stack };
-
-class Stack {
+export class Stack {
     constructor() {
         this.stack = [];
     }
@@ -10,7 +8,7 @@ class Stack {
     }
 
     remove() {
-        if (!isEmpty())
+        if (!this.isEmpty())
             return this.stack.pop();
         return null;
     }
