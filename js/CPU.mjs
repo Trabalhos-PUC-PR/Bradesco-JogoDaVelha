@@ -1,16 +1,16 @@
 import { checkWin } from './Tic-tac-toe.js';
 
 export class CPU {
-    constructor(difficulty) {
+    constructor() {
         // 0 = easy
         // 1 = medium
         // 2 = expert
         this.color = "blue"
     }
 
-    setDifficulty(difficulty){
+    setDifficulty(difficulty) {
         this.difficulty = parseInt(difficulty);
-        console.log("setted difficulty as ["+difficulty+"]");
+        console.log("setted difficulty as [" + difficulty + "]");
     }
 
     getPossiblePlays(field, color = this.color) {
@@ -45,24 +45,35 @@ export class CPU {
                     return
                 }
 
-                if(this.difficulty == 2){
-                let classified;
-                // simulates every opponent piece placement with current placement
-                let opponentPlays = this.getPossiblePlays(play.field, "red")
-                opponentPlays.forEach(opponentPlay => {
-                    if (!classified && checkWin(opponentPlay.field, "red")) {
+                if (this.difficulty == 2) {
+                    let classified;
+                    // simulates every opponent piece placement with current placement
+                    let opponentPlays = this.getPossiblePlays(play.field, "red")
+                    opponentPlays.forEach(opponentPlay => {
+                        if (!classified && checkWin(opponentPlay.field, "red")) {
+                            classification.push({
+                                'value': -1,
+                                'play': play
+                            });
+                            classified = "yes";
+                        }
+                    });
+
+                    if (classified) {
+                        return;
+                    }
+
+                    // if this is the first cpu play, and the 1,1 square is open, prioritize it!
+                    if(plays.length == 8 && play.pos === "1,1"){
                         classification.push({
-                            'value': -1,
+                            'value': 2,
                             'play': play
                         });
-                        classified = "yes";
+                        return;
                     }
-                });
 
-                if (classified) {
-                    return;
                 }
-            }
+
             }
             // piece placements that are not decisive
             classification.push({
@@ -78,10 +89,8 @@ export class CPU {
     getBestPlay(plays) {
         plays.sort(this.compare);
 
-        console.log(plays)
-
         // if theres any decisive placement, chose that placement
-        if (plays[plays.length - 1].value == -1 || plays[0].value == 1)
+        if (plays[plays.length - 1].value == -1 || plays[0].value > 0)
             return plays[0];
 
         // if not, next placement is random

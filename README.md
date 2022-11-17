@@ -1,4 +1,4 @@
-# Bradesco-JogoDaVelha
+# Tic-Tac-Toe
 Tic-tac-toe made with HTML, CSS and JS, has a built-in CPU to play with!
 
 ### CPU settings:
