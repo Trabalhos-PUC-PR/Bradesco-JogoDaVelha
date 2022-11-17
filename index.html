@@ -11,34 +11,46 @@
 </head>
 
 <body>
-    <h2><b>TODO:</b></h2>
-    <p>CPU opponent implementation (easy, medium, expert) with tree logic</p>
-
-
-    <center>
-        <br>
-        <div class="row">
-            <div class="square" onclick="placePiece(this)" pos="0,0"></div>
-            <div class="square" onclick="placePiece(this)" pos="0,1"></div>
-            <div class="square" onclick="placePiece(this)" pos="0,2"></div>
-        </div>
-        <div class="row">
-            <div class="square" onclick="placePiece(this)" pos="1,0"></div>
-            <div class="square" onclick="placePiece(this)" pos="1,1"></div>
-            <div class="square" onclick="placePiece(this)" pos="1,2"></div>
-        </div>
-        <div class="row">
-            <div class="square" onclick="placePiece(this)" pos="2,0"></div>
-            <div class="square" onclick="placePiece(this)" pos="2,1"></div>
-            <div class="square" onclick="placePiece(this)" pos="2,2"></div>
-        </div>
-    </center>
-    <div class="rewindButton" onclick="rewind()">
-        <center>
-            <br>
-            Undo
-        </center>
+    <br>
+    <div class="row">
+        <div class="square" onclick="placePiece(this)" pos="0,0"></div>
+        <div class="square" onclick="placePiece(this)" pos="0,1"></div>
+        <div class="square" onclick="placePiece(this)" pos="0,2"></div>
     </div>
+    <div class="row">
+        <div class="square" onclick="placePiece(this)" pos="1,0"></div>
+        <div class="square" onclick="placePiece(this)" pos="1,1"></div>
+        <div class="square" onclick="placePiece(this)" pos="1,2"></div>
+    </div>
+    <div class="row">
+        <div class="square" onclick="placePiece(this)" pos="2,0"></div>
+        <div class="square" onclick="placePiece(this)" pos="2,1"></div>
+        <div class="square" onclick="placePiece(this)" pos="2,2"></div>
+    </div>
+    <div class="row">
+        <div class="rewindButton" id="rewindButton" onclick="rewind()">
+            Undo
+        </div>
+        <div>
+            <span id="cpu-settings">
+                <h3>CPU settings:</h3>
+                <p>
+                    <input type="radio" id="off-diff" name="diff" value="-1">
+                    <label for="off-diff">OFF</label><br>
+
+                    <input type="radio" id="easy-diff" name="diff" value="0">
+                    <label for="easy-diff">Easy</label><br>
+
+                    <input type="radio" id="medium-diff" name="diff" value="1" checked>
+                    <label for="medium-diff">Medium</label><br>
+
+                    <input type="radio" id="expert-diff" name="diff" value="2">
+                    <label for="expert-diff">Expert</label><br>
+                </p>
+            </span>
+        </div>
+    </div>
+
 </body>
 <script type="module" src="js/hashGame.js">
     import { placePiece } from 'js/hashGame.js';

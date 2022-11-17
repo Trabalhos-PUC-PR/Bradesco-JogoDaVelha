@@ -6,6 +6,7 @@ let log;
 let field;
 let hasWinner;
 let IA;
+let selectedDiff;
 
 function setup() {
     current = "red";
@@ -36,13 +37,26 @@ window.rewind = function () {
         } else {
             current = "red";
         }
+    } 
 
+    if(log.size() == 0){
+        selectedDiff = undefined;
+        document.getElementById('cpu-settings').style.display = 'block';
+        document.getElementById('rewindButton').style.display = 'none';
     }
-    console.log(log.size())
-    console.log(field)
+
+    if(current === "blue" && selectedDiff >= 0){
+        rewind();
+    }
 }
 
 window.placePiece = function (element) {
+    if(!selectedDiff){
+        selectedDiff = document.querySelector('input[name="diff"]:checked').value;
+        IA.setDifficulty(selectedDiff);
+        document.getElementById('cpu-settings').style.display = 'none';
+        document.getElementById('rewindButton').style.display = 'block';
+    }
     if (!hasWinner) {
 
         const value = element.getAttribute("value");
@@ -78,9 +92,9 @@ window.placePiece = function (element) {
                     document.body.style.background = 'LightGrey'
                 }
             }
-            if (!hasWinner && current == "blue") {
+            if (!hasWinner && selectedDiff >=0 && current == "blue") {
                 const CPUplay = IA.getBestPlay(IA.classify(IA.getPossiblePlays(field)));
-                
+
                 const elem = document.querySelector('[pos="' + CPUplay.play.pos + '"]');
                 placePiece(elem);
             }
