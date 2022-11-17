@@ -1,4 +1,4 @@
-import { checkWin } from '../js/hashGame.js';
+import { checkWin } from './Tic-tac-toe.js';
 
 export class CPU {
     constructor(difficulty) {
@@ -36,7 +36,7 @@ export class CPU {
         plays.forEach(play => {
 
             if (this.difficulty > 0) {
-                // jogada decisiva para vitória
+                // decisive piece placement to victory
                 if (checkWin(play.field, this.color)) {
                     classification.push({
                         'value': 1,
@@ -47,7 +47,7 @@ export class CPU {
 
                 if(this.difficulty == 2){
                 let classified;
-                // simula as jogadas do oponente com a jogada que esta sendo analisada
+                // simulates every opponent piece placement with current placement
                 let opponentPlays = this.getPossiblePlays(play.field, "red")
                 opponentPlays.forEach(opponentPlay => {
                     if (!classified && checkWin(opponentPlay.field, "red")) {
@@ -64,7 +64,7 @@ export class CPU {
                 }
             }
             }
-            // jogadas que não são decisivas
+            // piece placements that are not decisive
             classification.push({
                 'value': 0,
                 'play': play
@@ -80,11 +80,11 @@ export class CPU {
 
         console.log(plays)
 
-        // se existe alguma jogada decisiva (que ganha ou perde o jogo) na tabela de jogadas possiveis
+        // if theres any decisive placement, chose that placement
         if (plays[plays.length - 1].value == -1 || plays[0].value == 1)
             return plays[0];
 
-        // se não, aleatoriza a prox jogada
+        // if not, next placement is random
         return plays[Math.floor((Math.random() * plays.length))];
 
     }
